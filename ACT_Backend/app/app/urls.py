@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from simpleapp.views import SensorView
+from simpleapp.views import SensorView, SensorType
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sensor/', SensorView.as_view()),
+    path('sensortype/', SensorType.as_view()),
 ]

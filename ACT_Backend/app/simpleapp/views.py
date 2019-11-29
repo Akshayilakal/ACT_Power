@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 import datetime
 from django.forms.models import model_to_dict
+import itertools
 
 # Create your views here.
 
@@ -38,3 +39,12 @@ class SensorView(APIView):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+class SensorType(APIView):
+    """
+    List all code sensordata, or create a new sensor data.
+    """
+    def get(self, request):
+        sensor = SensorData.objects.values_list('sensorType').distinct()
+        return JsonResponse(list(itertools.chain(*sensor)), safe=False)
